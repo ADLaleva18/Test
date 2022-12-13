@@ -1,0 +1,23 @@
+USE Training
+SELECT
+ep.EmployeeID,
+e.FirstName,
+CASE
+    WHEN YEAR(p.StartDate) < 2005 THEN p.Name
+    ELSE NULL
+END as ProjectName
+FROM EmployeesProjects as ep
+INNER JOIN Employees as e ON ep.EmployeeID = e.EmployeeID
+INNER JOIN Projects as p ON ep.ProjectID = p.ProjectID
+WHERE e.EmployeeID = 24
+
+USE Training
+SELECT TOP(5)
+e.FirstName as 'First Name',
+p.Name as 'Project Name',
+p.EndDate as 'End Date'
+FROM Projects as p
+INNER JOIN EmployeesProjects as ep ON ep.ProjectID = p.ProjectID
+INNER JOIN Employees as e ON ep.EmployeeID = e.EmployeeID
+WHERE p.EndDate is NULL
+ORDER BY e.FirstName
